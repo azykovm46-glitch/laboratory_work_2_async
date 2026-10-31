@@ -17,7 +17,7 @@
 
 Нужен **Python 3.10** или новее. Сторонние библиотеки не требуются.
 
-В папку `starter` лежат заготовки для каждого шага и файл `timer.py` с двумя помощниками:
+В папке `starter` лежат реализованные примеры для каждого шага и файл `timer.py` с двумя помощниками:
 
 - `print_time()` — контекстный менеджер, печатает общее время блока;
 - `log(message)` — печатает строку с меткой времени от старта, например `[  0.5s] alice: ответ отправлен`.
@@ -29,7 +29,7 @@ cd starter
 python3 step1_sync.py
 ```
 
-Пока программа выведет только `Time elapsed: 0.00s`, это нормально.
+Ожидаемое время выполнения — около 10 секунд.
 
 ## Правила
 
@@ -272,4 +272,23 @@ await loop.run_in_executor(pool, heavy_compute)
 1. `await` подряд — это всё ещё последовательно.
 2. Корутина уступает управление сама, в точке `await`, и event loop в это время запускает другие.
 3. Асинхронность не ускоряет обработку, а не даёт простаивать во время ожидания.
+
+## Команды запуска готовых примеров
+
+Запускайте команды из папки starter. В шаге 2 последовательный режим идёт по умолчанию, а флаг --concurrent включает конкурентный режим:
+
+    python3 step2_async.py
+    python3 step2_async.py --concurrent
+
+Для шага 3 запустите асинхронный сервер:
+
+    python3 step3_server_async.py
+
+Шаг 4 по умолчанию показывает блокировку event loop. Передайте режим thread или process, чтобы вынести вычисления, и задайте несколько тяжёлых запросов флагом --heavy:
+
+    python3 step4_blocking.py
+    python3 step4_blocking.py --mode thread
+    python3 step4_blocking.py --mode process
+    python3 step4_blocking.py --mode thread --heavy bob,dave,eve
+    python3 step4_blocking.py --mode process --heavy bob,dave,eve
 

@@ -21,5 +21,7 @@ def log(message: str) -> None:
 def print_time():
     global _start
     _start = monotonic()
-    yield
-    print(f"Time elapsed: {monotonic() - _start:.2f}s")
+    try:
+        yield
+    finally:
+        print(f"Time elapsed: {monotonic() - _start:.2f}s")
